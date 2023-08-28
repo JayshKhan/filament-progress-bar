@@ -30,7 +30,6 @@
     "autoload": {
         "psr-4": {
             "Jayshkhan\\ProgressBar\\": "src/",
-            "Jayshkhan\\ProgressBar\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {

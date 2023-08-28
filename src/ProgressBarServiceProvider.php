@@ -3,8 +3,6 @@
 namespace Jayshkhan\ProgressBar;
 
 use Filament\Support\Assets\Asset;
-use Filament\Support\Assets\Css;
-use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Filesystem\Filesystem;
@@ -35,7 +33,7 @@ class ProgressBarServiceProvider extends PackageServiceProvider
                     ->publishConfigFile()
                     ->publishMigrations()
                     ->askToRunMigrations()
-                    ->askToStarRepoOnGitHub('jaysh-khan/filament-progress-bar');
+                    ->askToStarRepoOnGitHub('jayshkhan/filament-progress-bar');
             });
 
         $configFileName = $package->shortName();
@@ -117,14 +115,14 @@ class ProgressBarServiceProvider extends PackageServiceProvider
     {
         return [
             // AlpineComponent::make('filament-progress-bar', __DIR__ . '/../resources/dist/components/filament-progress-bar.js'),
-            Css::make('filament-progress-bar-styles', __DIR__.'/../resources/dist/filament-progress-bar.css'),
-            Js::make('filament-progress-bar-scripts', __DIR__.'/../resources/dist/filament-progress-bar.js'),
+//            Css::make('filament-progress-bar-styles', __DIR__.'/../resources/dist/filament-progress-bar.css'),
+//            Js::make('filament-progress-bar-scripts', __DIR__.'/../resources/dist/filament-progress-bar.js'),
         ];
     }
 
     protected function getAssetPackageName(): ?string
     {
-        return 'jaysh-khan/filament-progress-bar';
+        return 'jayshkhan/filament-progress-bar';
     }
 
     /**
