@@ -1,26 +1,25 @@
 <?php
 
-namespace VendorName\Skeleton;
+namespace Jayshkhan\ProgressBar;
 
-use Filament\Support\Assets\AlpineComponent;
 use Filament\Support\Assets\Asset;
 use Filament\Support\Assets\Css;
 use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Filesystem\Filesystem;
+use Jayshkhan\ProgressBar\Commands\ProgressBarCommand;
+use Jayshkhan\ProgressBar\Testing\TestsProgressBar;
 use Livewire\Features\SupportTesting\Testable;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use VendorName\Skeleton\Commands\SkeletonCommand;
-use VendorName\Skeleton\Testing\TestsSkeleton;
 
-class SkeletonServiceProvider extends PackageServiceProvider
+class ProgressBarServiceProvider extends PackageServiceProvider
 {
-    public static string $name = 'skeleton';
+    public static string $name = 'filament-progress-bar';
 
-    public static string $viewNamespace = 'skeleton';
+    public static string $viewNamespace = 'filament-progress-bar';
 
     public function configurePackage(Package $package): void
     {
@@ -36,7 +35,7 @@ class SkeletonServiceProvider extends PackageServiceProvider
                     ->publishConfigFile()
                     ->publishMigrations()
                     ->askToRunMigrations()
-                    ->askToStarRepoOnGitHub(':vendor_slug/:package_slug');
+                    ->askToStarRepoOnGitHub('jaysh-khan/filament-progress-bar');
             });
 
         $configFileName = $package->shortName();
@@ -56,6 +55,26 @@ class SkeletonServiceProvider extends PackageServiceProvider
         if (file_exists($package->basePath('/../resources/views'))) {
             $package->hasViews(static::$viewNamespace);
         }
+    }
+
+    /**
+     * @return array<class-string>
+     */
+    protected function getCommands(): array
+    {
+        return [
+            ProgressBarCommand::class,
+        ];
+    }
+
+    /**
+     * @return array<string>
+     */
+    protected function getMigrations(): array
+    {
+        return [
+            'create_filament-progress-bar_table',
+        ];
     }
 
     public function packageRegistered(): void
@@ -82,18 +101,13 @@ class SkeletonServiceProvider extends PackageServiceProvider
         if (app()->runningInConsole()) {
             foreach (app(Filesystem::class)->files(__DIR__ . '/../stubs/') as $file) {
                 $this->publishes([
-                    $file->getRealPath() => base_path("stubs/skeleton/{$file->getFilename()}"),
-                ], 'skeleton-stubs');
+                    $file->getRealPath() => base_path("stubs/filament-progress-bar/{$file->getFilename()}"),
+                ], 'filament-progress-bar-stubs');
             }
         }
 
         // Testing
-        Testable::mixin(new TestsSkeleton());
-    }
-
-    protected function getAssetPackageName(): ?string
-    {
-        return ':vendor_slug/:package_slug';
+        Testable::mixin(new TestsProgressBar());
     }
 
     /**
@@ -102,20 +116,23 @@ class SkeletonServiceProvider extends PackageServiceProvider
     protected function getAssets(): array
     {
         return [
-            // AlpineComponent::make('skeleton', __DIR__ . '/../resources/dist/components/skeleton.js'),
-            Css::make('skeleton-styles', __DIR__ . '/../resources/dist/skeleton.css'),
-            Js::make('skeleton-scripts', __DIR__ . '/../resources/dist/skeleton.js'),
+            // AlpineComponent::make('filament-progress-bar', __DIR__ . '/../resources/dist/components/filament-progress-bar.js'),
+            Css::make('filament-progress-bar-styles', __DIR__ . '/../resources/dist/filament-progress-bar.css'),
+            Js::make('filament-progress-bar-scripts', __DIR__ . '/../resources/dist/filament-progress-bar.js'),
         ];
     }
 
-    /**
-     * @return array<class-string>
-     */
-    protected function getCommands(): array
+    protected function getAssetPackageName(): ?string
     {
-        return [
-            SkeletonCommand::class,
-        ];
+        return 'jaysh-khan/filament-progress-bar';
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    protected function getScriptData(): array
+    {
+        return [];
     }
 
     /**
@@ -132,23 +149,5 @@ class SkeletonServiceProvider extends PackageServiceProvider
     protected function getRoutes(): array
     {
         return [];
-    }
-
-    /**
-     * @return array<string, mixed>
-     */
-    protected function getScriptData(): array
-    {
-        return [];
-    }
-
-    /**
-     * @return array<string>
-     */
-    protected function getMigrations(): array
-    {
-        return [
-            'create_skeleton_table',
-        ];
     }
 }
