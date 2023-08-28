@@ -115,8 +115,8 @@ class ProgressBarServiceProvider extends PackageServiceProvider
     {
         return [
             // AlpineComponent::make('filament-progress-bar', __DIR__ . '/../resources/dist/components/filament-progress-bar.js'),
-//            Css::make('filament-progress-bar-styles', __DIR__.'/../resources/dist/filament-progress-bar.css'),
-//            Js::make('filament-progress-bar-scripts', __DIR__.'/../resources/dist/filament-progress-bar.js'),
+            //            Css::make('filament-progress-bar-styles', __DIR__.'/../resources/dist/filament-progress-bar.css'),
+            //            Js::make('filament-progress-bar-scripts', __DIR__.'/../resources/dist/filament-progress-bar.js'),
         ];
     }
 
